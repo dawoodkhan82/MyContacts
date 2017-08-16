@@ -22,46 +22,6 @@ class ContactsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadContactsArrays()
-
-//        DispatchQueue.main.async {
-//
-//            if (self.updatedFavoriteContact != nil) {
-//                if (self.favoriteContactsArray?.contains(where: {$0.name == self.updatedFavoriteContact?.name}))! {
-//                    if let contactIndex = self.favoriteContactsArray?.index(where: {$0.name == self.updatedFavoriteContact?.name}) {
-//                        self.favoriteContactsArray?.remove(at: contactIndex)
-//                }
-//            } else {
-//                if let contactIndex = self.nonFavoriteContactsArray?.index(where: {$0.name == self.updatedFavoriteContact?.name}) {
-//                    self.nonFavoriteContactsArray?.remove(at: contactIndex)
-//                }
-//            }
-//            self.tableView.reloadData()
-//
-//        }
-//        }
-        
-//        let hadContact = favoriteContactsArray?.contains { element in
-//            if case updatedFavoriteContact?.name = element.name {
-//                return true
-//            } else {
-//                return false
-//            }
-//        }
-        
-        
-
-//        DispatchQueue.main.async {
-//            self.firstTask { (success) -> Void in
-//                if success {
-//                    DispatchQueue.main.async {
-////                    print("fave array:", self.favoriteContactsArray?.count)
-////                    print("non-fave array:", self.nonFavoriteContactsArray?.count)
-////                    print("copy is: ", self.contactsCopy?.count)
-////                    self.tableView.reloadData()
-//                    }
-//                }
-//            }
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,18 +35,6 @@ class ContactsTableViewController: UITableViewController {
             self.nonFavoriteContactsArray = contacts.filter() {!$0.isFavorite!}
         }
     }
-    
-    
-//    func firstTask(completion: (_ success: Bool) -> Void) {
-//
-//        // Call completion, when finished, success or faliure
-//        completion(true)
-//    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Table view data source
 
@@ -95,10 +43,8 @@ class ContactsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         if (section == 0) {
             if (updatedFavoriteContactsArray != nil) {
-                print("!!!", updatedFavoriteContactsArray?.count)
                 return updatedFavoriteContactsArray!.count
             } else {
                 return 4
@@ -110,54 +56,7 @@ class ContactsTableViewController: UITableViewController {
                 return 14
             }
         }
-        
-//        rowsNeeded { (rows) in
-//            print("yooo this is the number", self.number)
-//        }
-//        print("boo", yo)
-
-
-//        var numOfRows = 0
-//        if (section == 0) {
-////            rowsNeeded(completionHandler: { (rows) in
-////                numOfRows = rows
-////            })
-////            return numOfRows
-//            return 4
-//        } else {
-////            rowsNeeded(completionHandler: { (rows) in
-////                numOfRows = (rows - (self.favoriteContactsArray?.count)!)
-////            })
-////            return numOfRows
-//            return 14
-//        }
-        
-        
-//        DispatchQueue.main.async {
-//
-//            if (section == 0) {
-//                if (self.favoriteContactsArray?.count != nil) {
-//                    return (self.favoriteContactsArray!.count)
-//                }
-//            } else {
-//                if (self.nonFavoriteContactsArray?.count != nil) {
-//                    return (self.nonFavoriteContactsArray!.count)
-//                }
-//            }
-//            tableView.reloadData()
-//        }
-//        print("fave array123:", self.favoriteContactsArray?.count)
-//        return 18
     }
-//    var number: Int?
-//    public func rowsNeeded(completionHandler: @escaping (_ favoriteRows: Int) -> ()){
-////     public func rowsNeeded(completionHandler: @escaping (_ favoriteRows: Int) -> ()) -> Int{
-//        DispatchQueue.main.async {
-//            completionHandler((self.favoriteContactsArray?.count)!)
-//        }
-//        number = self.favoriteContactsArray?.count
-////        return (self.favoriteContactsArray?.count)!
-//    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "ContactTableViewCell"
@@ -166,27 +65,34 @@ class ContactsTableViewController: UITableViewController {
         }
         
         DispatchQueue.main.async {
-            
             var contact: Contacts
             if (indexPath.section == 0) {
                 if (self.updatedFavoriteContactsArray != nil) {
-                contact = self.updatedFavoriteContactsArray![indexPath.row]
+                    contact = self.updatedFavoriteContactsArray![indexPath.row]
+                    if (self.updatedFavoriteContactsArray?.contains(where: {$0.name == contact.name}))! {
+                        cell.favoriteButton.setImage(UIImage(named: "Favorite — True"), for: .normal)
+                    }
                 } else {
                     contact = self.favoriteContactsArray![indexPath.row]
                 }
             } else {
                 if (self.updatedNonFavoriteContactsArray != nil) {
                     contact = self.updatedNonFavoriteContactsArray![indexPath.row]
+                    if (self.updatedNonFavoriteContactsArray?.contains(where: {$0.name == contact.name}))! {
+                        cell.favoriteButton.setImage(UIImage(named: "Favorite — False"), for: .normal)
+                    }
                 } else {
                     contact = self.nonFavoriteContactsArray![indexPath.row]
                 }
             }
             cell.nameLabel.text = contact.name
             cell.companyLabel.text = contact.companyName
-            if (contact.isFavorite)! {
-                cell.favoriteButton.setImage(UIImage(named: "Favorite — True"), for: .normal)
-            } else {
-                cell.favoriteButton.setImage(UIImage(named: "Favorite — False"), for: .normal)
+            if (self.updatedFavoriteContactsArray == nil) {
+                if (contact.isFavorite)! {
+                    cell.favoriteButton.setImage(UIImage(named: "Favorite — True"), for: .normal)
+                } else {
+                    cell.favoriteButton.setImage(UIImage(named: "Favorite — False"), for: .normal)
+                }
             }
             if let url = URL.init(string: contact.largeImageURL!) {
                 cell.profileImage.downloadedFrom(url: url)
@@ -208,15 +114,20 @@ class ContactsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             let indexPath = tableView.indexPathForSelectedRow!
-            //let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
             
             if (indexPath.section == 0) {
-                self.selectedContact = self.favoriteContactsArray?[indexPath.row]
+                if (self.updatedFavoriteContactsArray != nil) {
+                    self.selectedContact = self.updatedFavoriteContactsArray?[indexPath.row]
+                } else {
+                    self.selectedContact = self.favoriteContactsArray?[indexPath.row]
+                }
             } else {
-                self.selectedContact = self.nonFavoriteContactsArray?[indexPath.row]
+                if (self.updatedNonFavoriteContactsArray != nil) {
+                    self.selectedContact = self.updatedNonFavoriteContactsArray?[indexPath.row]
+                } else {
+                    self.selectedContact = self.nonFavoriteContactsArray?[indexPath.row]
+                }
             }
-//            let destinationVC = DetailViewController()
-//            destinationVC.contact = selectedContact
             self.performSegue(withIdentifier: "showDetailView", sender: self)
         }
     }
@@ -227,35 +138,8 @@ class ContactsTableViewController: UITableViewController {
             destinationVC.contact = selectedContact
             destinationVC.favoriteContactsArray = favoriteContactsArray
             destinationVC.nonFavoriteContactsArray = nonFavoriteContactsArray
-            
-//            DispatchQueue.main.async {
-                print("www", self.updatedFavoriteContactsArray?.count)
-                print("xxx", self.updatedNonFavoriteContactsArray?.count)
-//            }
         }
     }
-
-//    func prepareForSegue(segue: UIStoryboardSegue, sender: Any?) {
-//
-//        if (segue.identifier == "showDetailView") {
-//            if let controller = segue.destination as? UINavigationController {
-//                if let destinationVC = controller.topViewController as? DetailViewController {
-//                    print("try this", selectedContact?.address)
-//                }
-//            }
-////            var destinationVC = segue.destination as! DetailViewController
-////            // your new view controller should have property that will store passed value
-////            print("try this", selectedContact?.address)
-////            destinationVC.contact = selectedContact
-//        }
-//    }
-    
-//    func getContactData(result: @escaping (_ fullContacts: [Contacts]?) -> Void){
-//        contactsDataModel.requestData { [] (contacts: [Contacts]) in
-//            result(contacts)
-//        }
-//    }
-    
 
 
     /*
@@ -302,22 +186,6 @@ class ContactsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-//    func loadImage(_ urlString: String, _ imageView: UIImageView) {
-//        let url: URL = URL(string: urlString)!
-//        //let session = URLSession.shared
-//        let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil )
-//        session.dataTask(with: url) { (data, response, error) in
-//            if data != nil {
-//                let image = UIImage(data: data!)
-//                if image != nil {
-//                    DispatchQueue.main.async(execute: {imageView.image = image})
-//                }
-//            }
-//        }
-//    }
-    
-
 }
 
 extension UIImageView {
@@ -334,6 +202,7 @@ extension UIImageView {
             }
             }.resume()
     }
+    
     func downloadedFrom(link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
         guard let url = URL(string: link) else { return }
         downloadedFrom(url: url, contentMode: mode)

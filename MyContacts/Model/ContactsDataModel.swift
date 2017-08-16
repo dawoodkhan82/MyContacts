@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Contacts: Decodable, Loopable {
+struct Contacts: Decodable {
     let name: String?
     let id: String?
     let companyName: String?
@@ -42,8 +42,8 @@ class ContactsDataModel: NSObject {
         guard let url = URL(string: jsonUrlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, err) in
-            //perhaps check err
-            //also perhaps check response status 200 OK
+            //check err
+            //check response status 200 OK
             guard let data = data else { return }
             do {
                 let contacts = try JSONDecoder().decode([Contacts].self, from: data)

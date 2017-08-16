@@ -105,11 +105,9 @@
 		8E47883D1F3E50DE008E664B /* MyContacts */ = {
 			isa = PBXGroup;
 			children = (
-				8E4788701F3E62E9008E664B /* ContactsTableViewController.swift */,
-				8E4788761F411E47008E664B /* ContactTableViewCell.swift */,
-				8E4788741F40D6D5008E664B /* ContactsDataModel.swift */,
-				8E47886E1F3E628D008E664B /* DetailViewController.swift */,
-				8E4788781F423253008E664B /* DetailTableViewCell.swift */,
+				8E47887A1F442E3A008E664B /* Model */,
+				8E47887B1F442E62008E664B /* Controllers */,
+				8E47887C1F442E8E008E664B /* Table View Cells */,
 				8E47883E1F3E50DE008E664B /* AppDelegate.swift */,
 				8E4788421F3E50DE008E664B /* Main.storyboard */,
 				8E4788471F3E50DE008E664B /* LaunchScreen.storyboard */,
@@ -135,6 +133,32 @@
 				8E4788601F3E50DE008E664B /* Info.plist */,
 			);
 			path = MyContactsUITests;
+			sourceTree = "<group>";
+		};
+		8E47887A1F442E3A008E664B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E4788741F40D6D5008E664B /* ContactsDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8E47887B1F442E62008E664B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8E4788701F3E62E9008E664B /* ContactsTableViewController.swift */,
+				8E47886E1F3E628D008E664B /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8E47887C1F442E8E008E664B /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8E4788761F411E47008E664B /* ContactTableViewCell.swift */,
+				8E4788781F423253008E664B /* DetailTableViewCell.swift */,
+			);
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

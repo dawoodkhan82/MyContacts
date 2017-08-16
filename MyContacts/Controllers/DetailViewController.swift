@@ -33,7 +33,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return contactsArray.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "DetailTableViewCell"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailTableViewCell else {
@@ -84,26 +83,21 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func favoriteButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "unwindSegueToHome", sender: self)
-//        updatingArrays()
-        //navigationController?.popToRootViewController(animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "unwindSegueToHome") {
-            destinationVC = segue.destination as! ContactsTableViewController
+            destinationVC = segue.destination as? ContactsTableViewController
             updateFavoritesArrays()
         }
     }
     
-    func updateFavoritesArrays() {
+    fileprivate func updateFavoritesArrays() {
         destinationVC?.updatedFavoriteContact = contact
         if (self.contact != nil) {
             if (self.favoriteContactsArray?.contains(where: {$0.name == self.contact?.name}))! {
                 if let contactIndex = self.favoriteContactsArray?.index(where: {$0.name == self.contact?.name}) {
-                    print("dis da count before", favoriteContactsArray?.count)
                     self.favoriteContactsArray?.remove(at: contactIndex)
-                    print("contact index", contactIndex)
-                    print("dis da count after", favoriteContactsArray?.count)
                     self.nonFavoriteContactsArray?.append(contact!)
                 }
             } else {
@@ -115,37 +109,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         destinationVC?.updatedFavoriteContactsArray = favoriteContactsArray
         destinationVC?.updatedNonFavoriteContactsArray = nonFavoriteContactsArray
-        print("aaa", destinationVC?.updatedFavoriteContactsArray?.count)
-        print("bbb", destinationVC?.updatedNonFavoriteContactsArray?.count)
     }
     
-}
-
-protocol Loopable {
-    func allProperties() throws -> [String: Any]
-}
-
-extension Loopable {
-    func allProperties() throws -> [String: Any] {
-        
-        var result: [String: Any] = [:]
-        
-        let mirror = Mirror(reflecting: self)
-        
-        // Optional check to make sure we're iterating over a struct or class
-        guard let style = mirror.displayStyle, style == .struct || style == .class else {
-            throw NSError()
-        }
-        
-        for (property, value) in mirror.children {
-            guard let property = property else {
-                continue
-            }
-            
-            result[property] = value
-        }
-        
-        return result
-    }
 }
 
