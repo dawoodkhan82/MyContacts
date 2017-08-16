@@ -4,7 +4,7 @@
 
 Submitted by: **Dawood Khan**
 
-## User Stories
+## Features
 
 The following **required** functionality is complete:
 
@@ -38,7 +38,7 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of the application:
 
 <a href="http://imgur.com/1V9Q5Li"><img src="http://i.imgur.com/1V9Q5Li.gif" title="source: imgur.com" /></a>
 
