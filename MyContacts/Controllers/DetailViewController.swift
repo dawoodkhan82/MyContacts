@@ -22,7 +22,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var emptyRowNumber: Int?
     let detailTypeArray = ["Home", "Mobile", "Work", "ADDRESS", "BIRTHDATE", "EMAIL"]
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadContactDetails()
@@ -70,6 +69,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var isFavoriteString: String
         isFavoriteString = (contact?.isFavorite)! ? "Favorite — True" : "Favorite — False"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:isFavoriteString), style: .plain, target: self, action: #selector(favoriteButtonPressed))
+        /*
+        if (self.favoriteContactsArray?.contains(where: {$0.name == self.contact?.name}))! {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"Favorite — True"), style: .plain, target: self, action: #selector(favoriteButtonPressed))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"Favorite — False"), style: .plain, target: self, action: #selector(favoriteButtonPressed))
+        }
+         */
     }
     
     fileprivate func createContactsArray() {
@@ -110,6 +116,5 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         destinationVC?.updatedFavoriteContactsArray = favoriteContactsArray
         destinationVC?.updatedNonFavoriteContactsArray = nonFavoriteContactsArray
     }
-    
 }
 

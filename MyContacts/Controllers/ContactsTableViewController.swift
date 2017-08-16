@@ -136,8 +136,13 @@ class ContactsTableViewController: UITableViewController {
         if (segue.identifier == "showDetailView") {
             let destinationVC = segue.destination as! DetailViewController
             destinationVC.contact = selectedContact
-            destinationVC.favoriteContactsArray = favoriteContactsArray
-            destinationVC.nonFavoriteContactsArray = nonFavoriteContactsArray
+            if (updatedFavoriteContactsArray != nil) {
+                destinationVC.favoriteContactsArray = updatedFavoriteContactsArray
+                destinationVC.nonFavoriteContactsArray = updatedNonFavoriteContactsArray
+            } else {
+                destinationVC.favoriteContactsArray = favoriteContactsArray
+                destinationVC.nonFavoriteContactsArray = nonFavoriteContactsArray
+            }
         }
     }
 
