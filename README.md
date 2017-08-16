@@ -25,12 +25,6 @@ Contact Detail View:
 * [X] Update home page when the user favorites or unfavorites a contact.
 * [X] Scale properly to different sized screens
 
-The following **optional** features are implemented:
-* [ ] UI animations
-* [X] Remembering the bill amount across app restarts (if <10mins)
-* [ ] Using locale-specific currency and currency thousands separators.
-* [X] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
-
 The following **additional** features are implemented:
 
 - [X] Use new Swift 4 Codeable protocol to parse JSON data.
@@ -38,6 +32,7 @@ The following **additional** features are implemented:
 - [X] Launch Screen.
 - [X] App icons for all sizes.
 - [X] Autolayout constraints for storyboard UI elements.
+* [ ] UI animations
 
 
 
